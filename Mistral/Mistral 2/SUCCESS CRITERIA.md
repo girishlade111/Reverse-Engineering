@@ -34,5 +34,7 @@ Generate progress reports at each phase completion and final report with:
 
 
 
+ERROR HANDLING
+
 
 
