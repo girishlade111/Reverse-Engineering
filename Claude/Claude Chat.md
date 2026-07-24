@@ -1,5 +1,3 @@
-xzfds
-
 # MASTER REVERSE ENGINEERING PROMPT
 
 ### (Paste this into Claude Code / VS Code, pointed at any repo, to fully reconstruct it for rebuild-from-scratch)
