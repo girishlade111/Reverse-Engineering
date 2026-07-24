@@ -276,10 +276,10 @@ Phase 4 (Deep Code Analysis)    Phase 5 (AI Analysis — CONDITIONAL)
 
 | Metric | Value |
 |--------|-------|
-| Total prompt files | 30 |
+| Total prompt files | 36 |
 | Infrastructure files | 12 |
-| Total project files | 42 |
-| Total phases | 7 |
+| Total project files | 48 |
+| Total phases | 9 |
 | Parallelization opportunities | 2 (Phase 4 + Phase 5) |
 | Minimum repository size | 1 file |
 | Maximum repository size | Unlimited (modular scope) |
@@ -290,7 +290,7 @@ Phase 4 (Deep Code Analysis)    Phase 5 (AI Analysis — CONDITIONAL)
 
 ## FRAMEWORK COMPLETENESS
 
-This framework v1.0 is **complete and ready for use.** All 30 prompts across 7 phases are written, validated, and cross-referenced. The framework covers:
+This framework v1.0 is **complete and ready for use.** All 36 prompts across 9 phases are written, validated, and cross-referenced. The framework covers:
 
 - ✅ **Discovery** — 3 prompts for initial repository scanning and inventory
 - ✅ **Structural Analysis** — 3 prompts for folder/entry/dependency mapping
@@ -299,5 +299,9 @@ This framework v1.0 is **complete and ready for use.** All 30 prompts across 7 p
 - ✅ **AI & Automation Analysis** — 5 conditional prompts for prompts, agents, tools, planning, memory
 - ✅ **Integration & Boundary Analysis** — 4 prompts for APIs, external services, events, configuration
 - ✅ **Documentation Generation** — 6 prompts for handbooks, references, rebuild guide, validation
+- ✅ **Validation & Quality** — 4 prompts for accuracy, completeness, consistency, and sign-off
+- ✅ **Rebuild Package** — 2 prompts for rebuild artifact assembly and verification
+
+**Total reverse engineering capability:** 36 executable prompts producing 36+ documentation artifacts, organized in a strict sequential pipeline with optional conditional branches.
 
 **Next steps for extension:** Add more specialization prompts for database-only analysis, mobile-specific analysis, embedded systems analysis, or CI/CD pipeline analysis.
