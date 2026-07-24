@@ -12,7 +12,7 @@ The framework must empower AI agents to:
 2. **Accurately Reconstruct** the complete architecture, workflows, and logic
 3. **Precisely Document** every component, relationship, and decision
 4. **Maintain** engineering rigor and production-grade quality
-5. **Scale** to repositories of any size and complexity
+5. **Scale** to repositories of any size and complexit y
 
 ## Non-Negotiable Principles
 
