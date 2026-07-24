@@ -17,13 +17,10 @@ Execution Flow Strategy:
 
 
 
-Entry Point Identification
-
-Control Flow Mapping
-
-State Transition Analysis
-
-Data Flow Analysis
+* Entry Point Identification
+* Control Flow Mapping
+* State Transition Analysis
+* Data Flow Analysis
 
 
 
