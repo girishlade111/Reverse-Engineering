@@ -118,12 +118,20 @@ Phase 4 (Deep Code Analysis)    Phase 5 (AI Analysis — CONDITIONAL)
                         │
                         ▼
               Phase 7 (Documentation Generation)
+                        │
+                        ▼
+              Phase 8 (Validation & Quality)
+                        │
+                        ▼
+              Phase 9 (Rebuild Package — OPTIONAL)
 ```
 
 **Rules:**
 - Phase 5 is **optional** — execute only if AI/agent patterns were detected in Phase 3
 - Phase 4 and Phase 5 can execute in parallel (different concerns)
 - All phases must complete before Phase 7 (Documentation)
+- Phase 8 runs only AFTER Phase 7 outputs are finalized
+- Phase 9 is **optional** — only if a rebuild package is requested
 - Never skip Phase 1 or Phase 2 — they establish the foundation
 
 ---
