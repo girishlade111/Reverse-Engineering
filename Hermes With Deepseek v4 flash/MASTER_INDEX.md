@@ -169,7 +169,13 @@ Phase 4 (Deep Code Analysis)    Phase 5 (AI Analysis — CONDITIONAL)
 | P27 | P26 | P29 |
 | P28 | P21 | P29 |
 | P29 | P25-P28 | P30 |
-| P30 | All | (Final validation) |
+| P30 | All | Phase 8 validation |
+| P31 | ALL Phase 1-7 outputs | P32 |
+| P32 | P31 | P33 |
+| P33 | P31, P32 | P34 |
+| P34 | P31, P32, P33 | Phase 9 (if needed) |
+| P35 | P34, ALL Phase 1-7 | P36 |
+| P36 | P35 | (Project complete) |
 
 ---
 
