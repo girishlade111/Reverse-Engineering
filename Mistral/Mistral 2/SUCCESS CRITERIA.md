@@ -38,3 +38,25 @@ ERROR HANDLING
 
 
 
+| Error | Recovery |
+
+| --- | --- |
+
+| Repository not found | Report, exit |
+
+| Insufficient permissions | Report, exit |
+
+| Timeout | Save progress, report partial |
+
+| Memory exhaustion | Reduce depth, continue |
+
+| Syntax errors | Document, continue |
+
+| Missing dependencies | Document, continue |
+
+| Circular dependencies | Document, continue |
+
+
+
+
+
