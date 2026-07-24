@@ -8,5 +8,15 @@ COMPLETE when:
 
 
 
+FAILURE CONDITIONS
+
+FAILS if:
+
+* Any component undocumented
+* Any relationship unmapped
+* Any fact unverified
+* Any diagram inaccurate
+* Validation checks fail
+
 
 
