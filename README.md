@@ -1,6 +1,6 @@
 # Enterprise Reverse Engineering Prompt Framework
 
-> **Version:** 1.0 | **Status:** COMPLETE | **Total Prompt Files:** 36 | **Infrastructure Files:** 12 | **Total Phases:** 9
+> **Version:** 1.1 | **Status:** COMPLETE | **Total Prompt Files:** 36 | **Supporting Files:** 13 | **Total Phases:** 9 | **AI Model Variants:** 5
 
 A modular, extensible, and reusable framework for AI-powered reverse engineering of any software repository — from single-file utilities to multi-service distributed systems with AI/agent workflows. This framework guides an LLM-based AI agent through a systematic, multi-phase analysis pipeline that produces complete, accurate, and actionable documentation.
 
@@ -11,6 +11,7 @@ A modular, extensible, and reusable framework for AI-powered reverse engineering
 - [What This Framework Is](#what-this-framework-is)
 - [Why It Exists](#why-it-exists)
 - [Architecture Overview](#architecture-overview)
+- [Framework Variants](#framework-variants)
 - [Quick Start](#quick-start)
 - [The 9-Phase Pipeline](#the-9-phase-pipeline)
   - [Phase 1 — Discovery](#phase-1--discovery)
@@ -121,6 +122,41 @@ Software repositories are knowledge silos. The design intent, architectural deci
     → Phase 9:  REBUILD PACKAGE  (optional — rebuild from docs)
     → [Complete Documentation Set]
 ```
+
+---
+
+## Framework Variants
+
+This repository contains **5 framework variants**, each tailored to a specific AI model or toolchain. All variants implement the same core 9-phase pipeline, but differ in prompt structure, formatting, depth, and AI-specific optimizations.
+
+| # | Variant | Directory | Files | Status |
+|---|---------|-----------|-------|--------|
+| 1 | **Hermes + Deepseek v4** | `Hermes With Deepseek v4 flash/` | 49 | **Canonical (Reference)** |
+| 2 | **Opencode + Deepseek v4 — V1** | `Opencode With Deepseek v4 flash/Version 1` | 37 | Complete |
+| 3 | **Opencode + Deepseek v4 — V2** | `Opencode With Deepseek v4 flash/Version 2` | 39 | Complete |
+| 4 | **Claude** | `Claude/` | 20 | Complete |
+| 5 | **Gemini 3.1 Pro** | `Gemini With Gemini 3.1 Pro/` | 3 | Foundational |
+
+### Variant Details
+
+**Hermes With Deepseek v4 flash** — The canonical reference framework. Contains the full 36-prompt, 13-supporting-file implementation with the standard 9-phase pipeline and comprehensive quality assurance system. This is the variant described in detail throughout this README.
+
+**Opencode With Deepseek v4 flash** — Two versions optimized for the Opencode agent runtime. Version 1 has 23 executable prompts with extensive supplementary files (checklists, templates, troubleshooting). Version 2 reorganizes into 10 core prompts plus 14 specialized prompts with pre-generated handbook documentation.
+
+**Claude** — A compact 20-file adaptation for Claude Code. Uses a combined master prompt approach with 10 numbered analysis prompts covering repository intelligence through validation/QA. Designed for single-session execution within Claude's context window.
+
+**Gemini With Gemini 3.1 Pro** — A lightweight 3-file foundational variant (Master Index, Mission Directive, Operating Rules). Designed as a minimal starting point for Gemini 3.1 Pro's extended context window.
+
+**Opencode With Nemotron 3 Ultra** — Placeholder directory for a future Nemotron-optimized variant.
+
+### Choosing a Variant
+
+| If you're using... | Start here |
+|-------------------|------------|
+| Any AI agent (general purpose) | `Hermes With Deepseek v4 flash/` |
+| Opencode with Deepseek v4 | `Opencode With Deepseek v4 flash/` (V2 recommended) |
+| Claude Code | `Claude/` |
+| Gemini 3.1 Pro | `Gemini With Gemini 3.1 Pro/` |
 
 ---
 
@@ -443,7 +479,7 @@ The framework enforces 12 binding rules (defined in `OPERATING_RULES.md`) that g
 
 ## File Inventory
 
-### Infrastructure Files (12)
+### Infrastructure & Orchestrator Files (13)
 
 | File | Lines | Purpose |
 |------|-------|---------|
