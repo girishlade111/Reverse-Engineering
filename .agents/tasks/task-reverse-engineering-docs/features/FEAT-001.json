@@ -2,7 +2,7 @@
   "id": "FEAT-001",
   "type": "docs",
   "description": "Generate Phase 1 (Repository Intelligence) and Phase 2 (File/Folder Analysis) documentation. Phase 1 produces the top-level ground truth: folder tree, variant detection, tech stack (Markdown), entry points (MASTER_PROMPT.md per variant), and system hypothesis. Phase 2 produces per-variant file-by-file accounting of every file in the repository with purpose, key content, and exclusions.",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "Create /projects/sandbox/Reverse-Engineering/docs/ directory",
     "Create docs/01-repository-intelligence.md with: (a) Full folder tree of the repo collapsed at reasonable depth, (b) Monorepo-style variant listing (all 10 variants with file counts and status), (c) Tech stack per variant (all Markdown, runtime target = AI agents), (d) Entry points per variant (MASTER_PROMPT.md, MASTER_INDEX.md, etc.), (e) Build/tooling (N/A for all), (f) System hypothesis paragraph",
@@ -22,5 +22,5 @@
     "Spot-check that file purposes match actual content (read a sample of referenced files to verify)"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "Repository contains 303 files (not 332 as initially estimated in the briefing). All 303 files are accounted for. The Hermes variant phase subfolders use em-dashes in their actual directory names on disk but documentation uses regular hyphens per OUTPUT_RULES. Gemini variant has 2 empty placeholder files (Mission Directive.md, Operating Rules.md). The Mistral 2 variant uses escaped Markdown (backslash-prefixed) in its files."
 }
