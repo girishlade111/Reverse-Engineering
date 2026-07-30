@@ -1,51 +1,55 @@
 # 02-file-folder-analysis
 
-This document provides a generalized structural analysis of the files and folders in the repository. Because the repository contains multiple variants of the same framework, the file structure within each variant heavily overlaps.
+This document provides a detailed structural analysis of the files and folders in the repository, focusing specifically on the **Canonical Reference Variant (`Hermes With Deepseek v4 flash`)** to demonstrate the framework's true complexity.
 
-## Excluded Folders/Files
-* `.git/` - Version control artifacts.
-* `docs/` - Generated documentation from this analysis.
-
-## Core Infrastructure Files (Present in most variants)
-These files form the non-executable configuration & reference layer (Layer 1 & Layer 2):
-
-* `MASTER_INDEX.md`: The root index mapping out the phases and the framework's file structure.
-* `MASTER_PROMPT.md`: The orchestration prompt given to the AI to execute all subsequent phases.
-* `MISSION.md`: The definition of done and overarching goals for the reverse engineering effort.
-* `PROJECT_SPECIFICATION.md`: Defines the scope, constraints, and non-goals of the target analysis.
-* `OPERATING_RULES.md`: Instructions for agent turn-to-turn pacing, continuation rules, and ambiguity handling.
-* `QUALITY_STANDARDS.md`: Anti-hallucination rules and the completeness bar.
-* `OUTPUT_RULES.md`: Conventions for structuring output, file naming, and diagramming.
+## Infrastructure Layer (Layer 1)
+These files govern the strict rules of engagement for the AI agent.
+* `MASTER_INDEX.md`: The root index mapping out the 9 phases and 35 prompts.
+* `MISSION.md`: The definition of done and overarching goals.
+* `PROJECT_SPECIFICATION.md`: Defines the scope, constraints, and non-goals.
+* `OPERATING_RULES.md`: Instructions for agent pacing, continuation rules, and ambiguity handling.
+* `QUALITY_STANDARDS.md`: Strict anti-hallucination rules and the completeness bar.
+* `OUTPUT_RULES.md`: Conventions for structuring output and file naming.
 * `PROMPT_DESIGN_GUIDE.md`: Design rationale and instructions for extending the framework.
+* `FRAMEWORK_DESIGN_PHILOSOPHY.md`: Theoretical underpinning of the AI orchestration approach.
+* `PROMPT_DEPENDENCY_MAP.md`: The execution DAG (Directed Acyclic Graph) determining the order of the 35 prompts.
+* `VALIDATION_CHECKLISTS.md`: Granular QA checks for every phase.
+* `GLOSSARY.md`: Shared definitions.
+* `DIAGRAM_TEMPLATES.md`: Pre-approved Mermaid.js schemas to prevent syntax errors.
 
-## Execution Prompt Files (Layer 3)
-Each variant contains a sequence of executable prompts, generally numbered sequentially.
+## Orchestration Layer (Layer 2)
+* `MASTER_PROMPT.md`: The single entry point that instructs the LLM how to iterate through Layer 3.
 
-### Variant: Hermes With Deepseek v4 flash (Canonical)
-**Purpose:** The canonical reference framework containing the full 36-prompt implementation with 13 supporting files.
-* `PROMPT_01_*.md` to `PROMPT_09_*.md` (and beyond): Sequential execution prompts covering discovery, architecture, deep code analysis, diagrams, tech stack, documentation, validation, etc.
-* `templates/` (if present): Mermaid and documentation templates used during execution.
+## Execution Layer (Layer 3)
+The execution layer consists of 35 specialized prompts organized into 9 discrete phases.
 
-### Variant: Opencode With Deepseek v4 flash (Version 1 & 2)
-**Purpose:** Optimized for the Opencode agent runtime.
-* **Version 1:** Contains 23 executable prompts with supplementary files (checklists, templates, troubleshooting).
-* **Version 2:** Reorganized into 10 core prompts plus 14 specialized prompts (`PROMPT_S*.md`) covering sub-domains (Memory, DB, Auth). Also includes pre-generated handbooks.
+### Phase 1: Discovery (`PROMPT_01` to `03`)
+* `PROMPT_01_RECONNAISSANCE.md` (or similar): Initial repository scan.
+* `PROMPT_02_TECH_STACK_IDENTIFICATION.md`: Determines languages and frameworks.
+* `PROMPT_03_...`: Finalizes discovery inventory.
 
-### Variant: Claude
-**Purpose:** Compact 20-file adaptation optimized for Claude Code.
-* Condenses the standard phases into 10 numbered analysis prompts designed for a single session within Claude's context window.
+### Phase 2: Structural Analysis (`PROMPT_04` to `06`)
+* `PROMPT_04_...`: Directory architecture mapping.
+* `PROMPT_05_...`: Dependency analysis.
+* `PROMPT_06_...`: Entry point identification.
 
-### Variant: Qwen
-**Purpose:** Variant tailored to Qwen model execution.
-* Contains `prompts/` directory with discovery, tech stack, and architecture extraction prompts.
-* Contains `templates/` for architecture and component markdown formatting.
+### Phase 3: Architecture Reconstruction (`PROMPT_07` to `10`)
+* `PROMPT_07` to `10`: Maps the system components, layers, and design patterns.
 
-### Variant: Gemini With Gemini 3.1 Pro
-**Purpose:** Minimal starting point optimized for Gemini 3.1 Pro's extended context window.
-* Contains only 3 foundational files (`MASTER_INDEX.md`, `MISSION.md`, `OPERATING_RULES.md`).
+### Phase 4: Deep Code Analysis (`PROMPT_11` to `15`)
+* `PROMPT_11` to `15`: Traces execution paths, data flows, state machines, and concurrency models.
 
-### Variant: Blackbox, GLM5.1, Mistral
-**Purpose:** Adaptations for these specific LLMs. They largely follow the same core file distribution of Master Prompts and numbered Phase Prompts.
+### Phase 5: AI and Automation Analysis (`PROMPT_16` to `20`)
+* `PROMPT_16` to `20`: Specific prompts for extracting prompt chains, agent workflows, tool definitions, and RAG pipelines.
 
----
-*Note: Due to the repetitive nature of the framework variants, trivial and boilerplate files (like empty placeholders or redundant prompt variations) are grouped conceptually above. No structural business logic or backend source code exists in this repository.*
+### Phase 6: Integration and Boundary Analysis (`PROMPT_21` to `24`)
+* `PROMPT_21` to `24`: API extraction, database schemas, external services, and event buses.
+
+### Phase 7: Documentation Generation (`PROMPT_25` to `30`)
+* `PROMPT_25` to `30`: Drafts the architecture docs, sequence diagrams, component diagrams, and reference manuals.
+
+### Phase 8: Validation and Quality (`PROMPT_31` to `34`)
+* `PROMPT_31` to `34`: Automated self-audit prompts that force the LLM to double-check its Phase 7 outputs against the `VALIDATION_CHECKLISTS.md`.
+
+### Phase 9: Rebuild Package (`PROMPT_35`)
+* `PROMPT_35_...`: Synthesizes the validated docs into the final developer rebuild guide.
