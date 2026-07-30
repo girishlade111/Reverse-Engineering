@@ -1,52 +1,46 @@
 # 03-prompt-template-docs
 
-In this repository, "Prompts" and "Templates" serve the role of classes and functions in a traditional codebase. They are the modular, single-responsibility units that instruct an LLM to execute a specific task.
+In this framework, Prompts serve the role of classes and functions in a traditional codebase. The **Hermes Canonical Variant** utilizes 35 tightly coupled prompt functions.
 
 ## Class Equivalent: Core Configuration Documents
 These documents define the state, constraints, and lifecycle of the agent's operation.
 
-### `MISSION.md`
-* **Purpose:** Defines the overarching goal and the definition of "Done" for the agent.
-* **State it owns:** The terminal condition of the reverse-engineering task.
-* **Public API surface:** Read by the agent at initialization.
-
 ### `QUALITY_STANDARDS.md`
-* **Purpose:** Enforces anti-hallucination rules and sets the baseline for output acceptable quality.
-* **Inheritance/Composition:** Inherited/composited into all downstream execution phases to govern how they generate output.
-* **Lifecycle:** Active throughout the entire execution lifetime.
+* **Purpose:** The global validation middleware. Enforces anti-hallucination rules (e.g., "never invent a function's purpose from its name alone").
+* **State:** Immutable rule set.
+* **Lifecycle:** Loaded into the LLM context at `Step 1` and referenced during `Step 5` (Validation) of every single phase execution.
 
-### `OPERATING_RULES.md`
-* **Purpose:** Governs agent pacing, context continuation rules, and ambiguity handling (when to pause and ask the user).
+### `PROMPT_DEPENDENCY_MAP.md`
+* **Purpose:** The DAG (Directed Acyclic Graph) router.
+* **Public API:** Provides the exact `Next()` function logic for the orchestrator, ensuring `PROMPT_11` is never executed before `PROMPT_04`.
 
 ## Function Equivalent: Phase Execution Prompts
-These files take inputs, perform logic, and produce outputs (side effects).
+Each execution prompt is a highly constrained function designed to extract specific intelligence without polluting the context window with irrelevant data.
 
 ### `MASTER_PROMPT.md`
-* **Signature:** `execute(target_repo, framework_files) -> void`
-* **Purpose:** The orchestrator function. It loads the configuration and iteratively calls each Phase Prompt.
-* **Step-by-step logic:**
-  1. Load Mission, Operating Rules, Quality Standards.
-  2. Start iterating over Phase 1 through Phase 9 (or 10).
-  3. Pause for user feedback only if an ambiguity is unresolvable.
-* **Side effects:** Triggers the execution of all other prompts.
-* **Called-by:** The human operator (User).
-* **Calls-into:** `PROMPT_01` through `PROMPT_10`.
+* **Signature:** `execute_pipeline(target_repo_path) -> void`
+* **Logic loop:**
+  ```text
+  For each Phase (1 to 9):
+    1. Load specific Phase Prompt.
+    2. Verify prerequisites from previous phase outputs.
+    3. Execute the Phase System Prompt against the repo.
+    4. Run Quality Gate (VALIDATION_CHECKLISTS.md).
+    5. Generate a "Context Summary" for the next phase.
+    6. Yield to the next Phase Prompt.
+  ```
+* **Side effects:** Modifies the AI's internal state (via the Context Summary) and generates markdown output files.
 
-### `PROMPT_01_REPOSITORY_INTELLIGENCE.md` (and equivalents)
-* **Signature:** `analyze_root(directory_tree) -> 01-repository-intelligence.md`
-* **Purpose:** Extracts top-level ground truth, stacks, and hypotheses.
-* **Outputs / Side effects:** Generates the `01-repository-intelligence.md` artifact.
+### `PROMPT_01` through `PROMPT_03` (Discovery Module)
+* **Signature:** `discover(folder_tree, package_files) -> Inventory`
+* **Purpose:** Establishes absolute ground truth before any deep analysis. Prevents the AI from hallucinating files that don't exist.
 
-### `PROMPT_02` through `PROMPT_08`
-* **Signature:** `analyze_domain(codebase_files) -> [02-08]-*.md`
-* **Purpose:** Depth-first unit analysis for files, architectures, diagrams, and AI workflows.
-* **Error/Exception behavior:** If data is missing, tags as `[UNVERIFIED - needs confirmation]` and logs in Open Questions rather than failing or guessing.
+### `PROMPT_11` through `PROMPT_15` (Deep Code Analysis Module)
+* **Signature:** `analyze_code(source_files, component_map) -> Flow_Diagrams`
+* **Constraints:** Must use 10% spot-checks of claims against the source code. Cannot assume standard implementations (e.g., standard JWT).
+* **Exception handling:** If logic is obscured or missing, the prompt forces the LLM to throw an `[UNVERIFIED - needs confirmation]` tag rather than guessing.
 
-### `PROMPT_09_DEVELOPER_HANDBOOK_REBUILD.md`
-* **Signature:** `synthesize(all_previous_docs) -> 09-developer-handbook-rebuild-guide.md`
-* **Purpose:** Compiles all prior phase artifacts into a sequential rebuild guide.
-* **Calls-into:** Reads from outputs of Phases 1-8.
-
-### `PROMPT_10_VALIDATION_QA.md`
-* **Signature:** `audit(all_docs) -> final_validation_report`
-* **Purpose:** Self-audits the generated docs against the `QUALITY_STANDARDS.md` and generates a final report appended to `00-INDEX.md`.
+### `PROMPT_16` through `PROMPT_20` (AI Workflow Module)
+* **Signature:** `analyze_ai(prompts, agent_code, tool_schemas) -> AI_Architecture`
+* **Conditional Logic:** The `MASTER_PROMPT` checks the output of Phase 3. If no AI patterns were detected, `PROMPT_16-20` are skipped entirely to save compute and context space.
+* **Outputs:** Tool catalogs, planning pipelines, memory/RAG schemas.
