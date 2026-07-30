@@ -1,0 +1,28 @@
+{
+  "id": "FEAT-004",
+  "type": "docs",
+  "description": "Generate Phase 8 (Conditional Docs - mostly N/A), Phase 9 (Developer Handbook / Rebuild Guide), Phase 10 (Final Validation QA), and the 00-INDEX.md entry point. Phase 8 declares N/A for API, DB, Auth, Deploy, and Env subsections with reasons. Phase 9 synthesizes rebuild instructions. Phase 10 self-audits the full documentation set. 00-INDEX links all files together.",
+  "status": "completed",
+  "steps": [
+    "Create docs/08-conditional-docs/ directory with docs/08-conditional-docs/08-conditional-docs.md containing explicit N/A declarations for: (a) API Documentation - N/A, no routes/endpoints (this is a prompt framework, not a web service), (b) Database Documentation - N/A, no database, (c) Authentication Documentation - N/A, no auth system, (d) Deployment Documentation - N/A, no deploy config (framework is copy-paste to AI agent), (e) Environment Documentation - N/A, no env vars (framework relies on AI agent's built-in filesystem access). Each gets a 1-2 sentence explanation of why it does not apply.",
+    "Create docs/09-developer-handbook-rebuild-guide.md with: (a) Rebuild Order - step-by-step for creating a new variant of this framework from scratch (scaffold infrastructure layer -> build orchestrator -> create phase prompts -> validate -> organize into variant directory), (b) Feature Checklist - every 'feature' of the framework as rebuildable specs (continuation mechanism, evidence tagging, conditional skipping, quality gates, context compression, multi-resolution analysis), (c) Non-obvious Gotchas (context window limits, LLM laziness mitigation, cross-variant redundancy), (d) Known Debt (duplicated infrastructure files across variants, no automated diff verification, no version control between variants)",
+    "Create docs/10-validation-qa.md with the Phase 10 self-audit checklist run against the entire /docs output: verify all files accounted for, all diagrams valid Mermaid, no invented logic, rebuild guide standalone-usable, cross-references valid, open questions logged",
+    "Create docs/00-INDEX.md as the master entry point linking to every file produced with one-line summaries, plus an Open Questions log section at the bottom",
+    "Ensure all cross-references use relative markdown links between doc files",
+    "Ensure 00-INDEX.md links are relative paths that work within the docs/ directory"
+  ],
+  "acceptance_criteria": [
+    "docs/08-conditional-docs/08-conditional-docs.md exists with all 5 N/A subsections explicitly stated with reasons",
+    "docs/09-developer-handbook-rebuild-guide.md has Rebuild Order, Feature Checklist, Gotchas, and Known Debt sections",
+    "docs/10-validation-qa.md has the completed self-audit checklist",
+    "docs/00-INDEX.md links to every doc file with accurate relative paths and one-line descriptions",
+    "All cross-references between docs use relative markdown links"
+  ],
+  "verification": [
+    "Verify all 4 files exist (00-INDEX.md, 08-conditional-docs/08-conditional-docs.md, 09-developer-handbook-rebuild-guide.md, 10-validation-qa.md)",
+    "Verify 00-INDEX.md links reference all produced documentation files with correct relative paths",
+    "Verify 09 rebuild guide has actionable step-by-step instructions that could be followed independently"
+  ],
+  "blocked_reason": null,
+  "findings": "All 4 files created successfully. All cross-reference links verified against existing docs/ files. No build/test needed (documentation-only). Commit: 8d8b529. Post-review fix pass (commit 408b0c3): removed stale 332-file parenthetical in Phase 10, added scope note to Phase 9 rebuild section clarifying simplified-vs-canonical pipeline, reconciled template section names to match Phase 3 canonical structure."
+}
