@@ -8,7 +8,7 @@ This phase performs a self-audit of the complete documentation set produced in P
 
 ### 1. All Repository Files Accounted For
 
-- [x] **Pass.** Phase 2 ([02-file-folder-analysis.md](./02-file-folder-analysis/02-file-folder-analysis.md)) catalogs the repository structure across all 10 variant directories plus root-level files, accounting for the documented total of 303 files (332 total minus internal/generated files). Every variant directory and its contents are enumerated with per-file purpose descriptions.
+- [x] **Pass.** Phase 2 ([02-file-folder-analysis.md](./02-file-folder-analysis/02-file-folder-analysis.md)) catalogs the repository structure across all 10 variant directories plus root-level files, accounting for all 303 files in the repository. Every variant directory and its contents are enumerated with per-file purpose descriptions.
 
 ### 2. All Diagrams Use Valid Mermaid Syntax
 

@@ -6,6 +6,8 @@ This document provides actionable instructions for rebuilding the Enterprise Rev
 
 ## Rebuild Order
 
+> **Scope note:** This section describes a **simplified variant creation process** following the 10-phase documentation output model (as seen in the Claude compact variant and this documentation suite itself). It uses a flat 1-prompt-per-phase structure suitable for new or lightweight variants. The canonical Hermes reference implementation uses a more complex **9-phase, 36-prompt architecture** with hierarchical phase subdirectories, parallel prompt batches, and conditional branching at Phase 5 (AI patterns) and Phase 9 (rebuild). That architecture is documented in detail in [Phase 4 - System Design](./04-architecture/system-design.md) and [Phase 4 - Module Map](./04-architecture/module-map.md).
+
 To create a new framework variant from scratch, execute the following steps in order:
 
 ### Step 1: Scaffold the Infrastructure Layer
@@ -28,17 +30,21 @@ Create `MASTER_PROMPT.md` as the single entry point. This file must:
 3. Specify conditional logic for optional phases (Phase 6 if AI code present, Phase 8 if APIs/DBs present)
 4. Include the continuation mechanism trigger string
 
-### Step 3: Create Phase Prompts Following the 7-Section Template
+### Step 3: Create Phase Prompts Following the Template Structure
 
-Each phase prompt should contain these sections:
+Each phase prompt should contain the canonical seven sections documented in [Phase 3 - Prompt Template Documentation](./03-prompt-template-docs/03-prompt-template-docs.md):
 
-1. **Objective** - What this phase produces
-2. **Inputs** - What prior phase outputs are required
-3. **Execution Instructions** - Step-by-step procedure for the LLM
-4. **Output Format** - Exact structure of the deliverable
-5. **Quality Gates** - Validation criteria before proceeding
-6. **Conditional Logic** - When to skip or adapt
-7. **Continuation Trigger** - How to handle output truncation
+| # | Section | Purpose |
+|---|---------|---------|
+| 1 | **MISSION** | Declares the prompt's single responsibility |
+| 2 | **PREREQUISITES** | Lists required inputs and prior phase outputs |
+| 3 | **SYSTEM PROMPT** | Provides the AI persona and step-by-step instructions |
+| 4 | **EXECUTION INSTRUCTIONS** | Operational constraints for how to perform the work |
+| 5 | **OUTPUT SPECIFICATION** | Defines the exact structure of the deliverable |
+| 6 | **QUALITY GATE** | Pass/fail checklist before proceeding |
+| 7 | **HANDOFF** | Context items transferred to downstream prompts |
+
+> **Note on simplified variants:** Lightweight variants (single-prompt-per-phase) may condense SYSTEM PROMPT into EXECUTION INSTRUCTIONS and merge HANDOFF into a continuation trigger. The table above reflects the canonical Hermes structure. Adapt section granularity to the target LLM's instruction-following capability.
 
 Build prompts in order:
 
