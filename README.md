@@ -658,3 +658,8 @@ This project is currently unlicensed. All rights reserved.
 ---
 
 *Enterprise Reverse Engineering Prompt Framework v1.0 — 36 prompts, 9 phases, 12 infrastructure files. Zero dependencies. Maximum depth.*
+---
+
+## Author
+
+**Built by Girish Lade** — [ladestack.in](https://ladestack.in)
